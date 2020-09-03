@@ -1981,6 +1981,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "UserList",
@@ -2006,7 +2007,8 @@ __webpack_require__.r(__webpack_exports__);
         console.log(e);
       });
     },
-    likeUser: function likeUser(id) {}
+    likeUser: function likeUser(id) {},
+    disLikeUser: function disLikeUser(id) {}
   }
 });
 
@@ -40878,6 +40880,20 @@ var render = function() {
                   }
                 },
                 [_vm._v("Like")]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  staticClass: "badge badge-danger",
+                  staticStyle: { cursor: "pointer" },
+                  on: {
+                    click: function($event) {
+                      return _vm.disLikeUser(user.id)
+                    }
+                  }
+                },
+                [_vm._v("Dislike")]
               )
             ])
           ])

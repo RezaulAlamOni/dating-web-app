@@ -29,6 +29,7 @@
                 <td>{{ user.age }} Year</td>
                 <td>
                     <span class="badge badge-info" style="cursor: pointer" @click="likeUser(user.id)">Like</span>
+                    <span class="badge badge-danger" style="cursor: pointer" @click="disLikeUser(user.id)">Dislike</span>
                 </td>
             </tr>
             </tbody>
@@ -65,7 +66,10 @@ export default {
         },
         likeUser(id){
 
-        }
+        },
+        disLikeUser(id){
+
+        },
     }
 }
 </script>
