@@ -1,7 +1,9 @@
 <template>
     <section>
-        <div class="col-md-12">
-            <h2>User list around 5km </h2> <a href="/home" class="btn btn-success">Back</a>
+        <div class="col-md-12 row">
+            <div class="col-md-8"><h2>User list around 5km </h2></div>
+            <div class="col-md-4 pr-0"><a href="/home" class="btn btn-success" style="float:right;">Back</a></div>
+
         </div>
 
         <table class="table">
