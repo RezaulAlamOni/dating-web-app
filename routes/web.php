@@ -20,3 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+// for get all user
+Route::get('/all-users', 'HomeController@allUser')->name('all.user');

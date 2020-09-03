@@ -1979,7 +1979,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getUserList: function getUserList() {
-      axios.get('all-user').then(function (response) {
+      axios.get('all-users').then(function (response) {
         return response.data;
       }).then(function (response) {
         console.log(response);
