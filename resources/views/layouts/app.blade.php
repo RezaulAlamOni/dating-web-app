@@ -75,5 +75,9 @@
         </main>
     </div>
     @yield('script')
+
+    <script>
+        window.APP_URL = "{{ config('app.url') }}";
+    </script>
 </body>
 </html>
