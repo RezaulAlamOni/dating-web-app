@@ -1,6 +1,6 @@
 <template>
     <section>
-        <h1>User list</h1>
+        <h2>User list around 5km </h2>
         <table class="table">
             <thead>
             <tr>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2'
 export default {
     name: "UserList",
     data() {
