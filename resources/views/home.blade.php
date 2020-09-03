@@ -18,14 +18,19 @@
                             <div class="col-md-5">
                                 <img src="{{ asset('storage/images/'.Auth::user()->image)  }}" alt="" height="300"
                                      width="300">
-                                <form method="POST" action="{{ route('upload-profile') }}">
+                                <form method="POST" action="{{ route('upload-profile') }}" enctype="multipart/form-data">
                                     @csrf
-
                                     <div class="form-group row">
                                         <div class="col-md-12">
-                                            <input id="profile" type="file"
-                                                   class="form-control" name="profile"
-                                                   autocomplete="name">
+                                            <input type="file" accept="image/jpeg,png,jpg"
+                                                   class="form-control" name="profile">
+                                            @if ($errors->any())
+                                                @foreach ($errors->all() as $error)
+                                                    <strong class="text-danger">
+                                                        {{ $error }}
+                                                    </strong>
+                                                @endforeach
+                                            @endif
 
                                         </div>
                                     </div>
@@ -44,7 +49,8 @@
                                 <div class="form-group row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button class="btn btn-success">
-                                            <a class="text-white" style="text-decoration: none;" href="{{ route('all-user-view') }}">
+                                            <a class="text-white" style="text-decoration: none;"
+                                               href="{{ route('all-user-view') }}">
                                                 {{ __('View all users') }}
                                             </a>
                                         </button>
