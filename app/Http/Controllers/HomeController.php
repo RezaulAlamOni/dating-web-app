@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use function GuzzleHttp\Promise\all;
 
 class HomeController extends Controller
@@ -55,9 +56,12 @@ class HomeController extends Controller
             $filePath = $folder;
             $uploaded_file = $this->uploadSingleFile($image,$filePath,'public',$name);
             if ($uploaded_file){
+                if (Auth::user()->image !== 'default.png'){
+                    $this->deleteOne($folder,'public',Auth::user()->image);
+                }
                 User::where('id',Auth::user()->id)->update(['image'=>$name]);
             }
-            return back();
+            return redirect()->back()->with(['status' => 'Profile updated successfully.']);
         }
 
     }
@@ -70,4 +74,10 @@ class HomeController extends Controller
 
         return $file;
     }
+
+    public function deleteOne($folder = null, $disk = 'public', $filename = null)
+    {
+        Storage::disk($disk)->delete($folder.$filename);
+    }
+
 }
