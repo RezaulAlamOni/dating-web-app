@@ -37,7 +37,7 @@ export default {
     },
     methods: {
         getUserList() {
-            axios.get('all-users')
+            axios.get('get-all-users')
                 .then(response => response.data)
                 .then(response => {
                     console.log(response)

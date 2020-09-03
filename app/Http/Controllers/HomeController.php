@@ -29,6 +29,7 @@ class HomeController extends Controller
         return view('home');
     }
 
+    //for all user api data 
     public function allUser(){
         $user = User::all();
         return $user;
