@@ -132,6 +132,5 @@
             $('#long').val(position.coords.longitude)
             console.log(position)
         }
-
     </script>
 @endsection
