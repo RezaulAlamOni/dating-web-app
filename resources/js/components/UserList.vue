@@ -1,6 +1,9 @@
 <template>
     <section>
-        <h2>User list around 5km </h2>
+        <div class="col-md-12">
+            <h2>User list around 5km </h2> <a href="/home" class="btn btn-success">Back</a>
+        </div>
+
         <table class="table">
             <thead>
             <tr>
@@ -23,7 +26,7 @@
                 <td class="text-capitalize">{{ user.gender }}</td>
                 <td>{{ user.age }} Year</td>
                 <td>
-                    <span class="badge badge-info">Like</span>
+                    <span class="badge badge-info" style="cursor: pointer" @click="likeUser(user.id)">Like</span>
                 </td>
             </tr>
             </tbody>
@@ -56,6 +59,9 @@ export default {
                 .catch(e => {
                     console.log(e)
                 })
+
+        },
+        likeUser(id){
 
         }
     }
