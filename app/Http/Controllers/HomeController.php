@@ -34,4 +34,14 @@ class HomeController extends Controller
         return $user;
 
     }
+
+    public function viewAllUser(){
+       return view('users');
+
+    }
+
+    public function uploadProfile(Request $request){
+       return $request->all();
+
+    }
 }

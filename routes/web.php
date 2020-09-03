@@ -20,8 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/all-users', 'HomeController@viewAllUser')->name('all-user-view');
 Route::post('/upload-profile', 'HomeController@uploadProfile')->name('upload-profile');
 
 
+
 // for get all user
-Route::get('/all-users', 'HomeController@allUser')->name('all.user');
+Route::get('/get-all-users', 'HomeController@allUser')->name('all.user');
