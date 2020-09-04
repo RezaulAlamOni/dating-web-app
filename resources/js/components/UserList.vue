@@ -21,7 +21,7 @@
 
             <tr v-for="user in users">
                 <th scope="row">
-                    <img :src="url+'storage/images/'+user.image" alt="" height="50" width="50">
+                    <img :src="url+'images/'+user.image" alt="" height="50" width="50">
                 </th>
                 <td>{{ user.name }} </td>
                 <td>{{ user.distance.toFixed(3) }} <b>KM</b></td>

@@ -16,7 +16,7 @@
 
                         <div class="row">
                             <div class="col-md-5">
-                                <img src="{{ asset('storage/images/'.Auth::user()->image)  }}" alt="" height="300"
+                                <img src="{{ asset('/images/'.Auth::user()->image)  }}" alt="" height="300"
                                      width="300">
                                 <form method="POST" action="{{ route('upload-profile') }}" enctype="multipart/form-data">
                                     @csrf

@@ -22,6 +22,7 @@ class HomeController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -83,7 +84,6 @@ class HomeController extends Controller
 
     }
 
-
     public function uploadProfile(Request $request){
         $request->validate([
             'profile' => 'required'
@@ -91,7 +91,7 @@ class HomeController extends Controller
         if ($request->hasFile('profile')){
             $image = $request->file('profile');
             $name = time().$image->getClientOriginalName();
-            $folder = '/images/';
+            $folder = '/';
             // Make a file path where image will be stored [ folder path + file name + file extension]
             $filePath = $folder;
             $uploaded_file = $this->uploadSingleFile($image,$filePath,'public',$name);
