@@ -41,5 +41,13 @@ class User extends Authenticatable
     public function location(){
         return $this->hasOne(Location::class,'user_id','id');
     }
+    public function likes(){
+        return $this->hasMany(LikeUsers::class,'like_to','id');
+    }
+    public function likes_to(){
+        return $this->hasMany(LikeUsers::class,'like_by','id');
+    }
+
+
 
 }
