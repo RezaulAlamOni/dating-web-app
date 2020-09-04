@@ -2007,7 +2007,25 @@ __webpack_require__.r(__webpack_exports__);
         console.log(e);
       });
     },
-    likeUser: function likeUser(id) {},
+    likeUser: function likeUser(id) {
+      var _this = this;
+
+      axios.post('like-user', {
+        user_id: id
+      }).then(function (response) {
+        return response.data;
+      }).then(function (response) {
+        console.log(response);
+
+        if (response.status == 'success') {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Successfully liked !', 'Your liked successfully added.', 'success');
+        } else {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Already liked !', 'Your liked this user previously.', 'warning');
+        }
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    },
     disLikeUser: function disLikeUser(id) {}
   }
 });

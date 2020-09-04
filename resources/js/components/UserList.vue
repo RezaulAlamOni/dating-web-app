@@ -65,7 +65,29 @@ export default {
 
         },
         likeUser(id){
+            let _this = this;
+            axios.post('like-user',{user_id : id})
+                .then(response => response.data)
+                .then(response => {
+                    console.log(response)
+                    if (response.status == 'success'){
+                        Swal.fire(
+                            'Successfully liked !',
+                            'Your liked successfully added.',
+                            'success'
+                        )
+                    } else {
+                        Swal.fire(
+                            'Already liked !',
+                            'Your liked this user previously.',
+                            'warning'
+                        )
+                    }
 
+                })
+                .catch(e => {
+                    console.log(e)
+                })
         },
         disLikeUser(id){
 
