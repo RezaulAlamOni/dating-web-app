@@ -28,7 +28,7 @@
                 <td class="text-capitalize">{{ user.gender }}</td>
                 <td>{{ user.age }} Year</td>
                 <td>
-                    <span class="badge badge-info" style="cursor: pointer" @click="likeUser(user.id)">Like</span>
+                    <span class="badge badge-info" style="cursor: pointer" @click="likeUser(user)">Like</span>
                     <span class="badge badge-danger" style="cursor: pointer" @click="disLikeUser(user.id)">Dislike</span>
                 </td>
             </tr>
@@ -64,9 +64,9 @@ export default {
                 })
 
         },
-        likeUser(id){
+        likeUser(user){
             let _this = this;
-            axios.post('like-user',{user_id : id})
+            axios.post('like-user',{user_id : user.id})
                 .then(response => response.data)
                 .then(response => {
                     console.log(response)
@@ -74,6 +74,12 @@ export default {
                         Swal.fire(
                             'Successfully liked !',
                             'Your liked successfully added.',
+                            'success'
+                        )
+                    } else if(response.status == 'match'){
+                        Swal.fire(
+                            'You match with '+user.name,
+                            'You and '+user.name+' like each other!',
                             'success'
                         )
                     } else {

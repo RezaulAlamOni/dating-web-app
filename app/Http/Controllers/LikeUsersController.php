@@ -14,40 +14,51 @@ class LikeUsersController extends Controller
         $this->middleware('auth');
     }
 
-    public function createLike(Request  $request){
+    public function createLike(Request $request)
+    {
         $like_by = Auth::user()->id;
         $like_to = $request->user_id;
 
-        $check_like = LikeUsers::where(['like_by'=>$like_by,'like_to'=>$like_to])
-            ->orWhere(function ($q) use ($like_to,$like_by){
-                $q->where(['like_by'=>$like_to,'like_to'=>$like_by,'match_status'=>1]);
-            })->count();
-        if ($check_like <= 0){
-            LikeUsers::create([
-                'like_by'=>$like_by,
-                'like_to'=>$like_to
-            ]);
-
-            return response()->json(['status'=>'success']);
+        $check_like = LikeUsers::where(['like_by' => $like_by, 'like_to' => $like_to])->first();
+        if (!$check_like) {
+            $check_like1 = LikeUsers::where(['like_by' => $like_to, 'like_to' => $like_by])->first();
+            if ($check_like1) {
+                if ($check_like1->match_status == 1) {
+                    return response()->json(['status' => 'match']);
+                } else {
+                    LikeUsers::where(['id'=>$check_like1->id])
+                        ->update([
+                            'match_status' => 1
+                        ]);
+                    return response()->json(['status' => 'match']);
+                }
+            } else {
+                LikeUsers::create([
+                    'like_by' => $like_by,
+                    'like_to' => $like_to
+                ]);
+                return response()->json(['status' => 'success']);
+            }
         } else {
-            return response()->json(['status'=>'already liked']);
+            return response()->json(['status' => 'already liked']);
         }
     }
 
-    public function createDislike(Request  $request){
+    public function createDislike(Request $request)
+    {
         $like_by = Auth::user()->id;
         $like_to = $request->user_id;
 
-        $check_like = DislikeUsers::where(['dislike_by'=>$like_by,'dislike_to'=>$like_to])->count();
-        if ($check_like <= 0){
+        $check_like = DislikeUsers::where(['dislike_by' => $like_by, 'dislike_to' => $like_to])->count();
+        if ($check_like <= 0) {
             DislikeUsers::create([
-                'dislike_by'=>$like_by,
-                'dislike_to'=>$like_to
+                'dislike_by' => $like_by,
+                'dislike_to' => $like_to
             ]);
 
-            return response()->json(['status'=>'success']);
+            return response()->json(['status' => 'success']);
         } else {
-            return response()->json(['status'=>'already disliked']);
+            return response()->json(['status' => 'already disliked']);
         }
     }
 

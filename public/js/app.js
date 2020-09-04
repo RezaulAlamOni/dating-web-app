@@ -2007,11 +2007,11 @@ __webpack_require__.r(__webpack_exports__);
         console.log(e);
       });
     },
-    likeUser: function likeUser(id) {
+    likeUser: function likeUser(user) {
       var _this = this;
 
       axios.post('like-user', {
-        user_id: id
+        user_id: user.id
       }).then(function (response) {
         return response.data;
       }).then(function (response) {
@@ -2019,6 +2019,8 @@ __webpack_require__.r(__webpack_exports__);
 
         if (response.status == 'success') {
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Successfully liked !', 'Your liked successfully added.', 'success');
+        } else if (response.status == 'match') {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('You match with ' + user.name, 'You and ' + user.name + ' like each other!', 'success');
         } else {
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Already liked !', 'Your liked this user previously.', 'warning');
         }
@@ -40911,7 +40913,7 @@ var render = function() {
                   staticStyle: { cursor: "pointer" },
                   on: {
                     click: function($event) {
-                      return _vm.likeUser(user.id)
+                      return _vm.likeUser(user)
                     }
                   }
                 },
