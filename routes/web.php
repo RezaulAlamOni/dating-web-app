@@ -28,3 +28,4 @@ Route::post('/upload-profile', 'HomeController@uploadProfile')->name('upload-pro
 // for get all user
 Route::get('/get-all-users', 'HomeController@allUser')->name('all.user');
 Route::post('/like-user', 'LikeUsersController@createLike')->name('like.user');
+Route::post('/dislike-user', 'LikeUsersController@createDislike')->name('dislike.user');

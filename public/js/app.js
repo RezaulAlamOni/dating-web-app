@@ -2026,7 +2026,25 @@ __webpack_require__.r(__webpack_exports__);
         console.log(e);
       });
     },
-    disLikeUser: function disLikeUser(id) {}
+    disLikeUser: function disLikeUser(id) {
+      var _this = this;
+
+      axios.post('dislike-user', {
+        user_id: id
+      }).then(function (response) {
+        return response.data;
+      }).then(function (response) {
+        console.log(response);
+
+        if (response.status == 'success') {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Successfully disliked !', 'Your disliked successfully added.', 'success');
+        } else {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Already disliked !', 'Your disliked this user previously.', 'warning');
+        }
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    }
   }
 });
 

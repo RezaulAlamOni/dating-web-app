@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 
+use App\LikeUsers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\DocBlock\Tags\Uses;
 use function GuzzleHttp\Promise\all;
+use function Symfony\Component\String\u;
 
 class HomeController extends Controller
 {
@@ -55,6 +58,25 @@ class HomeController extends Controller
             ->where('users.id' ,'!=' ,Auth::user()->id)
             ->having('distance' ,'<=' ,5)
             ->get();
+        $all_users = $users->map(function ($user) {
+            return [
+                'id'=>$user->id,
+                'name'=>$user->name,
+                'image'=>$user->image,
+                'lat'=>$user->lat,
+                'long'=>$user->long,
+                'distance'=>$user->distance,
+                'gender'=>$user->gender,
+                'age'=> $user->age,
+                'dob'=>$user->dob,
+                'email'=>$user->email,
+                'email_verified_at'=>$user->email_verified_at,
+                'updated_at'=>$user->updated_at,
+                'created_at'=>$user->created_at,
+                'like' => $this->isLike($user->id),
+                'dislike' => $this->isDislike($user->id)
+            ];
+        });
 
         return response()->json(['users'=>$users]);
 
@@ -95,6 +117,23 @@ class HomeController extends Controller
     public function deleteOne($folder = null, $disk = 'public', $filename = null)
     {
         Storage::disk($disk)->delete($folder.$filename);
+    }
+
+    public function isLike($user_id){
+        $like_by = Auth::user()->id;
+        $check_like = LikeUsers::where(['like_by'=>$like_by,'like_to'=>$user_id])
+            ->orWhere(function ($q) use ($user_id,$like_by){
+                $q->where(['like_by'=>$user_id,'like_to'=>$like_by,'match_status'=>1]);
+            })->get();
+        if ($check_like) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public function isDislike($user_id){
+        return 0;
     }
 
 }

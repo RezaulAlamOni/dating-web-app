@@ -90,7 +90,29 @@ export default {
                 })
         },
         disLikeUser(id){
+            let _this = this;
+            axios.post('dislike-user',{user_id : id})
+                .then(response => response.data)
+                .then(response => {
+                    console.log(response)
+                    if (response.status == 'success'){
+                        Swal.fire(
+                            'Successfully disliked !',
+                            'Your disliked successfully added.',
+                            'success'
+                        )
+                    } else {
+                        Swal.fire(
+                            'Already disliked !',
+                            'Your disliked this user previously.',
+                            'warning'
+                        )
+                    }
 
+                })
+                .catch(e => {
+                    console.log(e)
+                })
         },
     }
 }
