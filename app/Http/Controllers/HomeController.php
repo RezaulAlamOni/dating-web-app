@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\DislikeUsers;
 use App\LikeUsers;
 use App\User;
 use Illuminate\Http\Request;
@@ -78,7 +79,7 @@ class HomeController extends Controller
             ];
         });
 
-        return response()->json(['users'=>$users]);
+        return response()->json(['users'=>$all_users]);
 
     }
 
@@ -133,7 +134,13 @@ class HomeController extends Controller
     }
 
     public function isDislike($user_id){
-        return 0;
+        $like_by = Auth::user()->id;
+        $check_like = DislikeUsers::where(['dislike_by'=>$like_by,'dislike_to'=>$user_id])->count();
+        if ($check_like > 0){
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
 }

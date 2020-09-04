@@ -14,7 +14,7 @@
                 <th scope="col">Distance</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Age</th>
-                <th scope="col">Action</th>
+                <th scope="col" style="width: 10%;">Action</th>
             </tr>
             </thead>
             <tbody>

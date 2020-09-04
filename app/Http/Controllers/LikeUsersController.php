@@ -35,20 +35,20 @@ class LikeUsersController extends Controller
     }
 
     public function createDislike(Request  $request){
-//        $like_by = Auth::user()->id;
-//        $like_to = $request->user_id;
-//
-//        $check_like = DislikeUsers::where(['dislike_by'=>$like_by,'dislike_to'=>$like_to])->count();
-//        if ($check_like <= 0){
-//            DislikeUsers::create([
-//                'dislike_by'=>$like_by,
-//                'dislike_to'=>$like_to
-//            ]);
-//
-//            return response()->json(['status'=>'success']);
-//        } else {
-//            return response()->json(['status'=>'already disliked']);
-//        }
+        $like_by = Auth::user()->id;
+        $like_to = $request->user_id;
+
+        $check_like = DislikeUsers::where(['dislike_by'=>$like_by,'dislike_to'=>$like_to])->count();
+        if ($check_like <= 0){
+            DislikeUsers::create([
+                'dislike_by'=>$like_by,
+                'dislike_to'=>$like_to
+            ]);
+
+            return response()->json(['status'=>'success']);
+        } else {
+            return response()->json(['status'=>'already disliked']);
+        }
     }
 
 

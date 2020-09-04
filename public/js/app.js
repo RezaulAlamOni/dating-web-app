@@ -40978,7 +40978,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Age")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Action")])
+        _c("th", { staticStyle: { width: "10%" }, attrs: { scope: "col" } }, [
+          _vm._v("Action")
+        ])
       ])
     ])
   }
