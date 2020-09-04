@@ -14,7 +14,7 @@
                 <th scope="col">Distance</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Age</th>
-                <th scope="col" style="width: 10%;">Action</th>
+                <th scope="col" style="width: 12%;">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -28,8 +28,11 @@
                 <td class="text-capitalize">{{ user.gender }}</td>
                 <td>{{ user.age }} Year</td>
                 <td>
-                    <span class="badge badge-info" style="cursor: pointer" @click="likeUser(user)">Like</span>
-                    <span class="badge badge-danger" style="cursor: pointer" @click="disLikeUser(user.id)">Dislike</span>
+                    <span class="badge badge-info" style="cursor: pointer" v-if="user.like == 0" @click="likeUser(user)">Like</span>
+                    <span class="badge badge-primary" :title="'You are liked '+user.name" style="cursor: pointer" v-else-if="user.like == 1" >Liked</span>
+                    <span class="badge badge-success" :title="'You are matched with '+user.name" style="cursor: pointer" v-else-if="user.like == 2" >Matched</span>
+                    <span class="badge badge-danger" style="cursor: pointer" v-if="user.dislike == 0"  @click="disLikeUser(user.id)">Dislike</span>
+                    <span class="badge badge-warning" :title="'You are disliked '+user.name"  style="cursor: pointer" v-else-if="user.dislike == 1"  >Disliked</span>
                 </td>
             </tr>
             </tbody>
@@ -69,14 +72,16 @@ export default {
             axios.post('like-user',{user_id : user.id})
                 .then(response => response.data)
                 .then(response => {
-                    console.log(response)
+                    _this.getUserList();
                     if (response.status == 'success'){
                         Swal.fire(
                             'Successfully liked !',
                             'Your liked successfully added.',
                             'success'
                         )
+
                     } else if(response.status == 'match'){
+                        _this.getUserList();
                         Swal.fire(
                             'You match with '+user.name,
                             'You and '+user.name+' like each other!',
@@ -102,12 +107,14 @@ export default {
                 .then(response => {
                     console.log(response)
                     if (response.status == 'success'){
+                        _this.getUserList();
                         Swal.fire(
                             'Successfully disliked !',
                             'Your disliked successfully added.',
                             'success'
                         )
                     } else {
+                        _this.getUserList();
                         Swal.fire(
                             'Already disliked !',
                             'Your disliked this user previously.',

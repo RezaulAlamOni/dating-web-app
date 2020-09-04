@@ -1982,6 +1982,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "UserList",
@@ -2015,11 +2018,13 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         return response.data;
       }).then(function (response) {
-        console.log(response);
+        _this.getUserList();
 
         if (response.status == 'success') {
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Successfully liked !', 'Your liked successfully added.', 'success');
         } else if (response.status == 'match') {
+          _this.getUserList();
+
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('You match with ' + user.name, 'You and ' + user.name + ' like each other!', 'success');
         } else {
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Already liked !', 'Your liked this user previously.', 'warning');
@@ -2039,8 +2044,12 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response);
 
         if (response.status == 'success') {
+          _this.getUserList();
+
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Successfully disliked !', 'Your disliked successfully added.', 'success');
         } else {
+          _this.getUserList();
+
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Already disliked !', 'Your disliked this user previously.', 'warning');
         }
       })["catch"](function (e) {
@@ -40906,33 +40915,67 @@ var render = function() {
             _c("td", [_vm._v(_vm._s(user.age) + " Year")]),
             _vm._v(" "),
             _c("td", [
-              _c(
-                "span",
-                {
-                  staticClass: "badge badge-info",
-                  staticStyle: { cursor: "pointer" },
-                  on: {
-                    click: function($event) {
-                      return _vm.likeUser(user)
-                    }
-                  }
-                },
-                [_vm._v("Like")]
-              ),
+              user.like == 0
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "badge badge-info",
+                      staticStyle: { cursor: "pointer" },
+                      on: {
+                        click: function($event) {
+                          return _vm.likeUser(user)
+                        }
+                      }
+                    },
+                    [_vm._v("Like")]
+                  )
+                : user.like == 1
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "badge badge-primary",
+                      staticStyle: { cursor: "pointer" },
+                      attrs: { title: "You are liked " + user.name }
+                    },
+                    [_vm._v("Liked")]
+                  )
+                : user.like == 2
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "badge badge-success",
+                      staticStyle: { cursor: "pointer" },
+                      attrs: { title: "You are matched with " + user.name }
+                    },
+                    [_vm._v("Matched")]
+                  )
+                : _vm._e(),
               _vm._v(" "),
-              _c(
-                "span",
-                {
-                  staticClass: "badge badge-danger",
-                  staticStyle: { cursor: "pointer" },
-                  on: {
-                    click: function($event) {
-                      return _vm.disLikeUser(user.id)
-                    }
-                  }
-                },
-                [_vm._v("Dislike")]
-              )
+              user.dislike == 0
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "badge badge-danger",
+                      staticStyle: { cursor: "pointer" },
+                      on: {
+                        click: function($event) {
+                          return _vm.disLikeUser(user.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Dislike")]
+                  )
+                : user.dislike == 1
+                ? _c(
+                    "span",
+                    {
+                      staticClass: "badge badge-warning",
+                      staticStyle: { cursor: "pointer" },
+                      attrs: { title: "You are disliked " + user.name }
+                    },
+                    [_vm._v("Disliked")]
+                  )
+                : _vm._e()
             ])
           ])
         }),
@@ -40980,7 +41023,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Age")]),
         _vm._v(" "),
-        _c("th", { staticStyle: { width: "10%" }, attrs: { scope: "col" } }, [
+        _c("th", { staticStyle: { width: "12%" }, attrs: { scope: "col" } }, [
           _vm._v("Action")
         ])
       ])

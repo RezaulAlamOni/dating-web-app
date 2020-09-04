@@ -125,9 +125,9 @@ class HomeController extends Controller
         $check_like = LikeUsers::where(['like_by'=>$like_by,'like_to'=>$user_id])
             ->orWhere(function ($q) use ($user_id,$like_by){
                 $q->where(['like_by'=>$user_id,'like_to'=>$like_by,'match_status'=>1]);
-            })->get();
+            })->first();
         if ($check_like) {
-            return 1;
+            return $check_like->match_status == 1 ? 2 : 1;
         } else {
             return 0;
         }
